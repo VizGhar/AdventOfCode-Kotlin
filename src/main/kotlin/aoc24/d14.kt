@@ -1,11 +1,12 @@
 package aoc24
 
+import measuredNano
 import java.io.File
 
 object Day14 {
 
-    private val width = 101
-    private val height = 103
+    private const val width = 101
+    private const val height = 103
 
     private data class Position(val x: Int, val y: Int)
     private data class Input(var position: Position, val velocity: Position)
@@ -34,12 +35,20 @@ object Day14 {
     }
 
     fun part2(): Int {
+        // If there is an image, somewhere should be too many filled points
+        // in this case I made 10x10 buckets (100 elements), if there are at
+        // least 50 elements in bucket - we found solution
         var state = input
-        for (i in 1..Int.MAX_VALUE) {
+        val buckets = mutableMapOf<Int, Int>()
+        return (1..Int.MAX_VALUE).first {
+            buckets.clear()
             state = state.next()
-            val positions = state.map { it.position }
-            if (positions.count { it.neighbors.any { n -> n in positions } } > state.size / 2) return i
+            for ((pos, _) in state) {
+                val value = (buckets[pos.x / 10 + (pos.y / 10) * 100] ?: 0)
+                if (value >= 50) return@first true
+                buckets[pos.x / 10 + (pos.y / 10) * 100] = value + 1
+            }
+            false
         }
-        return -1
     }
 }

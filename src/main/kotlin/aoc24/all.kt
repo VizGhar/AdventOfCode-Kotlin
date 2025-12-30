@@ -50,7 +50,7 @@ fun main() {
         println("Day 15:")
         measured { Day15.part1() }
         measured { Day15.part2() }
-        println("Day 16: - ERROR")
+        println("Day 16:")
         measured { Day16.part1() }
         measured { Day16.part2() }
         println("Day 17:")

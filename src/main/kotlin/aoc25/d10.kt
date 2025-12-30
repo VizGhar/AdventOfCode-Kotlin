@@ -31,7 +31,6 @@ object Day10 {
     }
 
     fun part2() = schematicsAll.sumOf { (_, config, req) ->
-
         val n = config.size
         val m = req.size
         val model = ExpressionsBasedModel()
